@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ElamIguguLeli.App.Pages.DonatePage"
+             Title="Donate / Drop Off">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+            <ActivityIndicator x:Name="Busy" IsRunning="True" IsVisible="True" Color="{StaticResource Brand}" />
+            <Label x:Name="LoadErrorLabel" TextColor="{StaticResource ErrorText}" IsVisible="False" />
+            <Button x:Name="RetryButton" Text="Try again" Style="{StaticResource SecondaryButton}" IsVisible="False" Clicked="OnRetryClicked" />
+
+            <VerticalStackLayout x:Name="FormStack" Spacing="12" IsVisible="False">
+                <Label Text="What are you donating?" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
+                <Picker x:Name="TypePicker" Title="Choose..." SelectedIndexChanged="OnTypeChanged" />
+
+                <!-- Money (EFT) -->
+                <VerticalStackLayout x:Name="MoneyStack" Spacing="10" IsVisible="False">
+                    <Border BackgroundColor="{StaticResource BrandLight}" StrokeThickness="0" Padding="14">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Pay by EFT" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
+                            <Label x:Name="BankLabel" TextColor="{StaticResource Ink}" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Entry x:Name="AmountEntry" Placeholder="Amount (R), whole rand" Keyboard="Numeric" MaxLength="7" />
+                    <Button x:Name="ProofButton" Text="Choose proof of payment (PDF, max 2 MB)" Style="{StaticResource SecondaryButton}" Clicked="OnChooseProofClicked" />
+                    <Label x:Name="ProofLabel" FontSize="12" TextColor="{StaticResource Muted}" />
+                </VerticalStackLayout>
+
+                <!-- Clothes or food -->
+                <VerticalStackLayout x:Name="ItemsStack" Spacing="10" IsVisible="False">
+                    <Picker x:Name="CityPicker" Title="Which city?" />
+                </VerticalStackLayout>
+
+                <Entry x:Name="DetailsEntry" Placeholder="Description (optional)" MaxLength="300" IsVisible="False" />
+
+                <Border x:Name="ContactBox" BackgroundColor="{StaticResource BrandLight}" StrokeThickness="0" Padding="14" IsVisible="False">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Contact the NPO to hand the items over" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
+                        <Label x:Name="ContactLabel" TextColor="{StaticResource Ink}" />
+                        <Button x:Name="InstagramButton" Style="{StaticResource SecondaryButton}" Clicked="OnInstagramClicked" />
+                        <VerticalStackLayout x:Name="PhoneStack" Spacing="6" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Label x:Name="SaveMessageLabel" IsVisible="False" />
+                <Button x:Name="SaveButton" Text="Save as Submitted" Style="{StaticResource PrimaryButton}" HeightRequest="56" IsVisible="False" Clicked="OnSaveClicked" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

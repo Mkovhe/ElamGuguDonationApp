@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ElamIguguLeli.App.Models"
+             x:Class="ElamIguguLeli.App.Pages.HomePage"
+             Title="Home">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="14">
+            <Label x:Name="WelcomeLabel" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Brand}" />
+
+            <Button Text="Donate / Drop Off" FontSize="20" HeightRequest="64" CornerRadius="14"
+                    BackgroundColor="{StaticResource Brand}" TextColor="White" FontAttributes="Bold"
+                    Clicked="OnDonateClicked" />
+
+            <Label Text="My donations" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
+            <ActivityIndicator x:Name="Busy" IsRunning="True" IsVisible="True" Color="{StaticResource Brand}" />
+            <Label x:Name="StateLabel" TextColor="{StaticResource Muted}" IsVisible="False" />
+            <Button x:Name="RetryButton" Text="Try again" Style="{StaticResource SecondaryButton}" IsVisible="False" Clicked="OnRetryClicked" />
+
+            <VerticalStackLayout x:Name="DonationsList" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:ApiIntent">
+                        <Border Stroke="#DFE9DF" StrokeThickness="1" Padding="14" BackgroundColor="White">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
+                                <Label Text="{Binding SummaryText}" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
+                                <Border Grid.Column="1" StrokeThickness="0" Padding="10,2" BackgroundColor="{Binding ChipBackground}">
+                                    <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                                    <Label Text="{Binding Status}" FontSize="12" FontAttributes="Bold" TextColor="{Binding ChipText}" />
+                                </Border>
+                                <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DetailText}" FontSize="12" TextColor="{StaticResource Muted}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Label Text="Received = an admin confirmed it arrived." FontSize="12" TextColor="{StaticResource Muted}" />
+
+            <Button Text="Webinars" Style="{StaticResource SecondaryButton}" Clicked="OnWebinarsClicked" />
+            <Button Text="Sign out" Style="{StaticResource SecondaryButton}" Clicked="OnLogoutClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

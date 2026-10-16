@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ElamIguguLeli.App.Pages.RegisterPage"
+             Title="Sign up">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+            <Label Text="Create your account" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Brand}" />
+
+            <Entry x:Name="NameEntry" Placeholder="Full name" />
+            <Entry x:Name="EmailEntry" Placeholder="Email address" Keyboard="Email" />
+            <Entry x:Name="PhoneEntry" Placeholder="Contact number, e.g. 082 123 4567" Keyboard="Telephone" />
+            <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
+            <Label Text="At least 8 characters with an uppercase letter, a lowercase letter and a number."
+                   FontSize="12" />
+            <Entry x:Name="ConfirmEntry" Placeholder="Confirm password" IsPassword="True" />
+
+            <HorizontalStackLayout Spacing="8">
+                <CheckBox x:Name="ConsentBox" Color="{StaticResource Brand}" />
+                <Label Text="I agree to Elam Igugu Leli storing my details (POPIA)." VerticalOptions="Center" WidthRequest="280" />
+            </HorizontalStackLayout>
+
+            <Label x:Name="ErrorLabel" TextColor="{StaticResource ErrorText}" IsVisible="False" />
+
+            <Button x:Name="RegisterButton" Text="Sign up" Style="{StaticResource PrimaryButton}" Clicked="OnRegisterClicked" />
+            <ActivityIndicator x:Name="Busy" IsRunning="False" IsVisible="False" Color="{StaticResource Brand}" />
+            <Button Text="Already have an account? Sign in" Style="{StaticResource SecondaryButton}" Clicked="OnSignInClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

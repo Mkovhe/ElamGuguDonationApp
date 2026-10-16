@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="#FBFCFB" />
+    </Style>
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="#1B2A1C" />
+    </Style>
+    <Style TargetType="Entry">
+        <Setter Property="TextColor" Value="#1B2A1C" />
+        <Setter Property="PlaceholderColor" Value="#5B6B5C" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+    </Style>
+    <Style TargetType="Picker">
+        <Setter Property="TextColor" Value="#1B2A1C" />
+        <Setter Property="TitleColor" Value="#5B6B5C" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+    </Style>
+</ResourceDictionary>

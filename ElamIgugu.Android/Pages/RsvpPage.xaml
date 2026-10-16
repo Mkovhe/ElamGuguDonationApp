@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ElamIguguLeli.App.Pages.RsvpPage"
+             Title="Register for webinar">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+            <Label x:Name="TopicLabel" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Brand}" />
+            <Entry x:Name="NameEntry" Placeholder="Your name" />
+            <Entry x:Name="PhoneEntry" Placeholder="Phone number, e.g. 082 123 4567" Keyboard="Telephone" />
+            <Label x:Name="MessageLabel" IsVisible="False" />
+            <Button x:Name="SubmitButton" Text="Register me" Style="{StaticResource PrimaryButton}" Clicked="OnSubmitClicked" />
+            <ActivityIndicator x:Name="Busy" IsRunning="False" IsVisible="False" Color="{StaticResource Brand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

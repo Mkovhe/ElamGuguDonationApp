@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ElamIguguLeli.App.Models"
+             x:Class="ElamIguguLeli.App.Pages.WebinarsPage"
+             Title="Career day webinars">
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16" RowSpacing="8">
+        <Label Grid.Row="0" Text="Free sessions for young people. No account needed."
+               HorizontalTextAlignment="Center" />
+        <ActivityIndicator x:Name="Busy" Grid.Row="1" IsRunning="True" IsVisible="True" Color="{StaticResource Brand}" />
+
+        <CollectionView x:Name="WebinarList" Grid.Row="2">
+            <CollectionView.EmptyView>
+                <Label Text="There are no upcoming webinars right now. Please check back soon."
+                       HorizontalTextAlignment="Center" Margin="0,24" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ApiWebinar">
+                    <Border Stroke="LightGray" StrokeThickness="1" Padding="14" Margin="0,6">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding Topic}" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource Brand}" />
+                            <Label Text="{Binding SpeakerText}" />
+                            <Label Text="{Binding WhenText}" />
+                            <Button Text="Register" Style="{StaticResource PrimaryButton}" Margin="0,8,0,0"
+                                    CommandParameter="{Binding Id}" Clicked="OnRegisterClicked" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
