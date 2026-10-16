@@ -40,25 +40,21 @@ More detail is in `ANDROID_AND_API.md`.
 
 ## Running the website locally
 
-Requirements: .NET 8 SDK and a SQL Server or Azure SQL database.
+Requirements: Visual Studio 2022 or later (or the .NET 8 SDK) and SQL Server LocalDB, which installs with Visual Studio.
 
-1. Set the connection string and JWT key as user-secrets (never commit them):
+1. Clone the repo and open `ElamIgugu.Web.slnx` in Visual Studio.
+2. Press Run (https profile). That is all.
 
-   ```
-   dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<your connection string>"
-   dotnet user-secrets set "Jwt:Key" "<a random string of 32+ characters>"
-   ```
+In Development the site uses a built-in test JWT key and the LocalDB database from `appsettings.json`. The database is created and migrated automatically on first start.
 
-2. Optional: create a first admin account.
+Optional: to create an admin account for the website, set these before running:
 
-   ```
-   dotnet user-secrets set "Seed:AdminEmail" "<admin email>"
-   dotnet user-secrets set "Seed:AdminPassword" "<strong password>"
-   ```
+```
+dotnet user-secrets set "Seed:AdminEmail" "<admin email>"
+dotnet user-secrets set "Seed:AdminPassword" "<strong password>"
+```
 
-3. Run `dotnet run`. Database migrations are applied on startup.
-
-The site will not start without `Jwt:Key`.
+In Production (Azure) the test key is NOT used. The site refuses to start unless `Jwt__Key` is set.
 
 ## Running on Azure
 
