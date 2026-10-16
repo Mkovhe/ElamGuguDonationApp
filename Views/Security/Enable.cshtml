@@ -1,0 +1,38 @@
+@model EnableTwoFactorViewModel
+@{
+    ViewData["Title"] = "Switch on two-factor";
+}
+
+<div class="auth-card">
+    <h1 class="page-title">Switch on two-factor sign-in</h1>
+
+    <ol class="mb-3">
+        <li>Install an authenticator app on your phone (Google Authenticator, Microsoft Authenticator or Authy).</li>
+        <li>In the app, add an account and scan this picture.</li>
+        <li>Type the 6-digit code the app shows below.</li>
+    </ol>
+
+    <div class="text-center mb-3" style="max-width:240px;margin:0 auto" aria-label="QR code to scan">
+        @Html.Raw(Model.QrSvg)
+    </div>
+    <p class="text-center text-muted small">Can't scan? Type this key into the app instead:<br /><code>@Model.SharedKey</code></p>
+
+    <form asp-action="Enable" method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Code" class="form-label"></label>
+            <input asp-for="Code" class="form-control form-control-lg text-center" inputmode="numeric"
+                   autocomplete="one-time-code" maxlength="10" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-brand w-100 btn-lg">Verify and switch on</button>
+    </form>
+
+    <p class="text-center mt-3 mb-0"><a asp-action="Index">Cancel</a></p>
+</div>
+
+@section Scripts {
+    <style>.auth-card svg { width: 100%; height: auto; }</style>
+}

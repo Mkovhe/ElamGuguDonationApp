@@ -26,6 +26,7 @@
                 @if (User.Identity?.IsAuthenticated == true)
                 {
                     <a class="nav-link-plain" asp-controller="Home" asp-action="Dashboard">My page</a>
+                    <a class="nav-link-plain" asp-controller="Security" asp-action="Index">Security</a>
                     <span class="role-pill @(User.IsInRole(AppRoles.Admin) ? "role-admin" : "role-donor")">
                         @(User.IsInRole(AppRoles.Admin) ? "Admin" : "Donor")
                     </span>

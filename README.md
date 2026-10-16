@@ -1,4 +1,4 @@
-﻿# Elam Igugu Leli Donation System
+# Elam Igugu Leli Donation System
 
 Group 19, IIE, module XADAD7112 (Work-Integrated Learning). A donation platform for the NPO **Elam Igugu Leli**: a website for donors and admins, plus an Android app for donors.
 
@@ -76,7 +76,9 @@ Requirements: Visual Studio 2026 with the .NET MAUI workload and an Android emul
 - Secrets (JWT key, database password) are never stored in the repo. They live in user-secrets locally and in Azure settings online.
 - Passwords need 8+ characters with upper case, lower case and a digit. Accounts lock after repeated failed logins.
 - API sign-in and registration are rate limited.
+- Database access uses Entity Framework (parameterised queries), so SQL injection is not possible through the forms.
+- **Two-factor sign-in (authenticator app):** after signing in, open **Security** in the top menu, choose **Switch on**, scan the QR code with Google/Microsoft Authenticator and enter the 6-digit code. You get 8 one-time recovery codes. From then on, signing in on the website and in the Android app asks for the code. Switching it off needs the password.
 
 ## Team
 
-IIE Group 19. Website by a teammate. API and Android app by Mukovhe Rambau.
+IIE Group 19. Website by a teammate. API and Android app by Chaka Vhukhudo.

@@ -1,0 +1,26 @@
+@model TwoFactorLoginViewModel
+@{
+    ViewData["Title"] = "Enter your code";
+}
+
+<div class="auth-card">
+    <h1 class="page-title">Enter your code</h1>
+    <p class="text-muted">Open your authenticator app and type the 6-digit code for Elam Igugu Leli.</p>
+
+    <form asp-action="LoginTwoFactor" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Code" class="form-label"></label>
+            <input asp-for="Code" class="form-control form-control-lg text-center" inputmode="numeric"
+                   autocomplete="one-time-code" maxlength="10" autofocus />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-brand w-100 btn-lg">Verify and sign in</button>
+    </form>
+
+    <p class="text-center text-muted mt-3 mb-0">
+        Lost your phone? <a asp-action="LoginRecoveryCode" asp-route-returnUrl="@ViewData["ReturnUrl"]">Use a recovery code</a>
+    </p>
+</div>

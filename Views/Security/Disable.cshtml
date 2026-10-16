@@ -1,0 +1,23 @@
+@model DisableTwoFactorViewModel
+@{
+    ViewData["Title"] = "Switch off two-factor";
+}
+
+<div class="auth-card">
+    <h1 class="page-title">Switch off two-factor</h1>
+    <p class="text-muted">Your account will be protected by your password only. Enter your password to confirm.</p>
+
+    <form asp-action="Disable" method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" autocomplete="current-password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-danger w-100">Switch off</button>
+    </form>
+
+    <p class="text-center mt-3 mb-0"><a asp-action="Index">Cancel</a></p>
+</div>

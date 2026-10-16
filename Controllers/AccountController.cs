@@ -103,9 +103,8 @@ public class AccountController : Controller
         }
         else if (result.RequiresTwoFactor)
         {
-            // Not reachable yet: nobody has two-factor switched on. The authenticator-app
-            // step will be added here later (see README, "Activating the authenticator app").
-            ModelState.AddModelError(string.Empty, "Two-factor sign-in is not available yet.");
+            // Password was right and this account has two-factor on: ask for the code next.
+            return RedirectToAction(nameof(LoginTwoFactor), new { returnUrl });
         }
         else
         {
@@ -114,6 +113,82 @@ public class AccountController : Controller
         }
 
         return View(model);
+    }
+
+    // ---------- Second step: authenticator-app code ----------
+
+    [HttpGet]
+    public async Task<IActionResult> LoginTwoFactor(string? returnUrl = null)
+    {
+        // Only reachable straight after a correct password
+        if (await _signInManager.GetTwoFactorAuthenticationUserAsync() is null)
+            return RedirectToAction(nameof(Login));
+
+        ViewData["ReturnUrl"] = returnUrl;
+        return View(new TwoFactorLoginViewModel());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> LoginTwoFactor(TwoFactorLoginViewModel model, string? returnUrl = null)
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+
+        if (await _signInManager.GetTwoFactorAuthenticationUserAsync() is null)
+            return RedirectToAction(nameof(Login));
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var code = model.Code.Replace(" ", string.Empty).Replace("-", string.Empty);
+        var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(
+            code, isPersistent: false, rememberClient: false);
+
+        if (result.Succeeded)
+            return AfterSignIn(returnUrl);
+
+        ModelState.AddModelError(string.Empty, result.IsLockedOut
+            ? "Too many failed attempts. Please try again in a few minutes."
+            : "That code is not correct or has expired. Try the newest code.");
+        return View(model);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> LoginRecoveryCode(string? returnUrl = null)
+    {
+        if (await _signInManager.GetTwoFactorAuthenticationUserAsync() is null)
+            return RedirectToAction(nameof(Login));
+
+        ViewData["ReturnUrl"] = returnUrl;
+        return View(new RecoveryLoginViewModel());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> LoginRecoveryCode(RecoveryLoginViewModel model, string? returnUrl = null)
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+
+        if (await _signInManager.GetTwoFactorAuthenticationUserAsync() is null)
+            return RedirectToAction(nameof(Login));
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var code = model.RecoveryCode.Replace(" ", string.Empty);
+        var result = await _signInManager.TwoFactorRecoveryCodeSignInAsync(code);
+
+        if (result.Succeeded)
+            return AfterSignIn(returnUrl);
+
+        ModelState.AddModelError(string.Empty, result.IsLockedOut
+            ? "Too many failed attempts. Please try again in a few minutes."
+            : "That recovery code is not valid. Each code works only once.");
+        return View(model);
+    }
+
+    private IActionResult AfterSignIn(string? returnUrl)
+    {
+        // Only follow a return address that belongs to this site (stops open-redirect attacks)
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return LocalRedirect(returnUrl);
+        return RedirectToAction("Dashboard", "Home");
     }
 
     // ---------- Logout ----------

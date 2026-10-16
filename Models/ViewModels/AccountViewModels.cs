@@ -45,3 +45,48 @@ public class LoginViewModel
     [DataType(DataType.Password)]
     public string Password { get; set; } = string.Empty;
 }
+
+public class TwoFactorLoginViewModel
+{
+    [Required(ErrorMessage = "Please enter the 6-digit code from your authenticator app.")]
+    [StringLength(10, MinimumLength = 6, ErrorMessage = "Enter the 6-digit code.")]
+    [Display(Name = "6-digit code")]
+    public string Code { get; set; } = string.Empty;
+}
+
+public class RecoveryLoginViewModel
+{
+    [Required(ErrorMessage = "Please enter one of your recovery codes.")]
+    [StringLength(30, MinimumLength = 6)]
+    [Display(Name = "Recovery code")]
+    public string RecoveryCode { get; set; } = string.Empty;
+}
+
+public class SecurityIndexViewModel
+{
+    public bool TwoFactorEnabled { get; set; }
+    public int RecoveryCodesLeft { get; set; }
+}
+
+public class EnableTwoFactorViewModel
+{
+    public string SharedKey { get; set; } = string.Empty;
+    public string QrSvg { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "Enter the 6-digit code shown in your authenticator app.")]
+    [StringLength(10, MinimumLength = 6, ErrorMessage = "Enter the 6-digit code.")]
+    [Display(Name = "6-digit code")]
+    public string Code { get; set; } = string.Empty;
+}
+
+public class RecoveryCodesViewModel
+{
+    public IReadOnlyList<string> Codes { get; set; } = Array.Empty<string>();
+}
+
+public class DisableTwoFactorViewModel
+{
+    [Required(ErrorMessage = "Enter your password to switch this off.")]
+    [DataType(DataType.Password)]
+    public string Password { get; set; } = string.Empty;
+}

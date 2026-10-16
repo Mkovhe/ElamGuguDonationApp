@@ -1,0 +1,26 @@
+@model SecurityIndexViewModel
+@{
+    ViewData["Title"] = "Security";
+}
+
+<div class="auth-card">
+    <h1 class="page-title">Account security</h1>
+
+    @if (TempData["Success"] is string ok)
+    {
+        <div class="alert alert-success">@ok</div>
+    }
+
+    <h2 class="h5">Two-factor sign-in</h2>
+    @if (Model.TwoFactorEnabled)
+    {
+        <p><span class="badge text-bg-success">On</span> Signing in needs your password and a code from your authenticator app.</p>
+        <p class="text-muted">Recovery codes left: <strong>@Model.RecoveryCodesLeft</strong></p>
+        <a class="btn btn-outline-secondary" asp-action="Disable">Switch off</a>
+    }
+    else
+    {
+        <p><span class="badge text-bg-secondary">Off</span> Add a second step to protect your account. You will need a free authenticator app on your phone, such as Google Authenticator or Microsoft Authenticator.</p>
+        <a class="btn btn-brand" asp-action="Enable">Switch on</a>
+    }
+</div>

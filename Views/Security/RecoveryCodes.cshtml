@@ -1,0 +1,21 @@
+@model RecoveryCodesViewModel
+@{
+    ViewData["Title"] = "Recovery codes";
+}
+
+<div class="auth-card">
+    <h1 class="page-title">Two-factor is on</h1>
+    <div class="alert alert-warning">
+        Save these recovery codes somewhere safe. They are shown only once. If you lose your phone,
+        each code lets you sign in one time.
+    </div>
+
+    <ul class="list-unstyled font-monospace fs-5 text-center">
+        @foreach (var code in Model.Codes)
+        {
+            <li>@code</li>
+        }
+    </ul>
+
+    <a class="btn btn-brand w-100" asp-action="Index">Done</a>
+</div>
