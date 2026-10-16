@@ -79,6 +79,7 @@
 
             <Label Text="Received = an admin confirmed it arrived." FontSize="12" TextColor="{StaticResource Muted}" />
 
+            <Button Text="Account security (two-factor)" Style="{StaticResource SecondaryButton}" Clicked="OnSecurityClicked" />
             <Button Text="Sign out" Style="{StaticResource SecondaryButton}" Clicked="OnLogoutClicked" />
         </VerticalStackLayout>
     </ScrollView>

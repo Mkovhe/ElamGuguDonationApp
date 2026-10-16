@@ -14,16 +14,17 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<SessionService>();
         builder.Services.AddSingleton<ApiClient>();
+        builder.Services.AddSingleton<SecurityClient>();
 
         builder.Services.AddTransient<LandingPage>();
         builder.Services.AddTransient<AboutPage>();
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<RegisterPage>();
         builder.Services.AddTransient<HomePage>();
-        
         builder.Services.AddTransient<DonatePage>();
         builder.Services.AddTransient<WebinarsPage>();
         builder.Services.AddTransient<RsvpPage>();
+        builder.Services.AddTransient<SecurityPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

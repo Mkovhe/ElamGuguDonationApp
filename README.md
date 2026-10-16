@@ -77,7 +77,7 @@ Requirements: Visual Studio 2026 with the .NET MAUI workload and an Android emul
 - Passwords need 8+ characters with upper case, lower case and a digit. Accounts lock after repeated failed logins.
 - API sign-in and registration are rate limited.
 - Database access uses Entity Framework (parameterised queries), so SQL injection is not possible through the forms.
-- **Two-factor sign-in (authenticator app):** after signing in, open **Security** in the top menu, choose **Switch on**, scan the QR code with Google/Microsoft Authenticator and enter the 6-digit code. You get 8 one-time recovery codes. From then on, signing in on the website and in the Android app asks for the code. Switching it off needs the password.
+- **Two-factor sign-in (authenticator app):** after signing in, open **Security** in the top menu, choose **Switch on**, scan the QR code with Google/Microsoft Authenticator and enter the 6-digit code. You get 8 one-time recovery codes. From then on, signing in on the website and in the Android app asks for the code. Switching it off needs the password. The Android app has the same option under **Account security (two-factor)** on the Home screen (it uses the `/api/security/two-factor` endpoints).
 
 ## Team
 

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             x:Class="ElamIguguLeli.App.Pages.SecurityPage"
+             Title="Security"
+             BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="14">
+
+            <Border StrokeThickness="0" Padding="0">
+                <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#174D2A" Offset="0.0" />
+                        <GradientStop Color="#2E8B45" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <shapes:Ellipse Fill="#2693D768" WidthRequest="130" HeightRequest="130" HorizontalOptions="End" VerticalOptions="Start" />
+                    <VerticalStackLayout Padding="22" Spacing="8">
+                        <Label Text="Account security" FontSize="24" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="Two-factor sign-in adds a code from your authenticator app." TextColor="#DDF3C4" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <ActivityIndicator x:Name="Busy" IsRunning="True" IsVisible="True" Color="{StaticResource Brand}" />
+            <Label x:Name="ErrorLabel" TextColor="{StaticResource ErrorText}" IsVisible="False" />
+            <Label x:Name="InfoLabel" TextColor="{StaticResource Brand}" FontAttributes="Bold" IsVisible="False" />
+
+            <!-- State 1: two-factor is off -->
+            <Border x:Name="OffCard" Style="{StaticResource CardBorder}" IsVisible="False">
+                <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Two-factor sign-in is OFF" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
+                    <Label Text="You need a free authenticator app on this phone, such as Google Authenticator or Microsoft Authenticator." TextColor="{StaticResource Muted}" />
+                    <Button Text="Switch on" Style="{StaticResource PrimaryButton}" Clicked="OnStartSetupClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- State 2: setting up -->
+            <Border x:Name="SetupCard" Style="{StaticResource CardBorder}" IsVisible="False">
+                <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Set up your authenticator" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
+                    <Label Text="1. Tap the button to add this account to your authenticator app." TextColor="{StaticResource Ink}" />
+                    <Button Text="Open my authenticator app" Style="{StaticResource PrimaryButton}" Clicked="OnOpenAuthenticatorClicked" />
+                    <Label Text="No luck? In the app choose 'Enter a setup key' and type this key:" TextColor="{StaticResource Muted}" />
+                    <Label x:Name="KeyLabel" FontFamily="monospace" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
+                    <Button Text="Copy key" Style="{StaticResource SecondaryButton}" Clicked="OnCopyKeyClicked" />
+                    <Label Text="2. Type the 6-digit code the app shows:" TextColor="{StaticResource Ink}" />
+                    <Entry x:Name="CodeEntry" Placeholder="6-digit code" Keyboard="Numeric" MaxLength="7" />
+                    <Button Text="Verify and switch on" Style="{StaticResource PrimaryButton}" Clicked="OnEnableClicked" />
+                    <Button Text="Cancel" Style="{StaticResource SecondaryButton}" Clicked="OnCancelSetupClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- State 3: recovery codes, shown once -->
+            <Border x:Name="CodesCard" Style="{StaticResource CardBorder}" IsVisible="False">
+                <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Two-factor sign-in is ON" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
+                    <Label Text="Save these recovery codes somewhere safe. They are shown only once. Each one lets you sign in one time if you lose your phone." TextColor="{StaticResource Muted}" />
+                    <Label x:Name="CodesLabel" FontFamily="monospace" FontSize="18" HorizontalTextAlignment="Center" TextColor="{StaticResource Ink}" />
+                    <Button Text="Copy codes" Style="{StaticResource SecondaryButton}" Clicked="OnCopyCodesClicked" />
+                    <Button Text="Done" Style="{StaticResource PrimaryButton}" Clicked="OnCodesDoneClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- State 4: two-factor is on -->
+            <Border x:Name="OnCard" Style="{StaticResource CardBorder}" IsVisible="False">
+                <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Two-factor sign-in is ON" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
+                    <Label x:Name="LeftLabel" TextColor="{StaticResource Muted}" />
+                    <Label Text="To switch it off, confirm your password:" TextColor="{StaticResource Ink}" />
+                    <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
+                    <Button Text="Switch off" Style="{StaticResource SecondaryButton}" Clicked="OnDisableClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button x:Name="RetryButton" Text="Try again" Style="{StaticResource SecondaryButton}" IsVisible="False" Clicked="OnRetryClicked" />
+            <Button Text="Back" Style="{StaticResource SecondaryButton}" Clicked="OnBackClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
