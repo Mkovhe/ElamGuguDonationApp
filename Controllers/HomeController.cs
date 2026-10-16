@@ -10,6 +10,9 @@ public class HomeController : Controller
     // Landing page: public, shows Sign in / Sign up
     public IActionResult Index() => View();
 
+    // What the NPO collects and how donating works
+    public IActionResult About() => View();
+
     // Sends a signed-in user to the right page for their role
     [Authorize]
     public IActionResult Dashboard() =>

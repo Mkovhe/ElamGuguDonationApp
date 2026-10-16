@@ -5,8 +5,10 @@
              x:Class="ElamIguguLeli.App.Pages.WebinarsPage"
              Title="Career day webinars">
     <Grid RowDefinitions="Auto,Auto,*" Padding="16" RowSpacing="8">
-        <Label Grid.Row="0" Text="Free sessions for young people. No account needed."
-               HorizontalTextAlignment="Center" />
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" ColumnSpacing="12" Margin="0,0,0,8">
+            <Image Source="icon_learn.svg" HeightRequest="56" WidthRequest="56" VerticalOptions="Center" />
+            <Label Grid.Column="1" Text="Free sessions for young people. No account needed." VerticalOptions="Center" />
+        </Grid>
         <ActivityIndicator x:Name="Busy" Grid.Row="1" IsRunning="True" IsVisible="True" Color="{StaticResource Brand}" />
 
         <CollectionView x:Name="WebinarList" Grid.Row="2">

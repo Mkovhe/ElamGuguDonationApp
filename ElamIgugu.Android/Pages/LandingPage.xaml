@@ -4,29 +4,15 @@
              x:Class="ElamIguguLeli.App.Pages.LandingPage"
              Title="Elam Igugu Leli">
     <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="14">
-            <Label Text="Elam Igugu Leli" FontSize="30" FontAttributes="Bold"
-                   TextColor="{StaticResource Brand}" HorizontalOptions="Center" />
-            <Label Text="Give something to those who have nothing." FontSize="22" FontAttributes="Bold"
-                   TextColor="{StaticResource Ink}" HorizontalTextAlignment="Center" />
-            <Label Text="Sowing Hope, Change and Greening Futures" TextColor="{StaticResource Muted}"
-                   HorizontalTextAlignment="Center" />
+        <VerticalStackLayout Padding="20" Spacing="16">
+            <Image Source="elam_logo.png" Aspect="AspectFit" HeightRequest="220" HorizontalOptions="Center" />
 
-            <Button Text="Sign up to donate" Style="{StaticResource PrimaryButton}" Clicked="OnSignUpClicked" />
+            <Label Text="Give something to those who have nothing." FontSize="26" FontAttributes="Bold"
+                   TextColor="{StaticResource BrandDark}" HorizontalTextAlignment="Center" />
+
+            <Button Text="Sign up to donate" Style="{StaticResource GoldButton}" Margin="0,8,0,0" Clicked="OnSignUpClicked" />
             <Button Text="Sign in" Style="{StaticResource SecondaryButton}" Clicked="OnSignInClicked" />
-            <Button Text="View webinars" Style="{StaticResource SecondaryButton}" Clicked="OnWebinarsClicked" />
-
-            <Label Text="REF: 260-053 NPO" TextColor="{StaticResource Muted}" FontSize="12" HorizontalTextAlignment="Center" />
-
-            <Border BackgroundColor="{StaticResource BrandLight}" StrokeThickness="0" Padding="16">
-                <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="What we collect" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
-                    <Label Text="Clothes, non-perishable food, money (EFT)" TextColor="{StaticResource Ink}" />
-                    <Label Text="Drop-off" FontAttributes="Bold" TextColor="{StaticResource Ink}" Margin="0,8,0,0" />
-                    <Label Text="12 Susan Road, Amalinda, Haven Hills" TextColor="{StaticResource Ink}" />
-                </VerticalStackLayout>
-            </Border>
+            <Button Text="About us" BackgroundColor="Transparent" TextColor="{StaticResource Brand}" Clicked="OnAboutClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

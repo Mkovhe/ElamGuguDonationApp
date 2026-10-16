@@ -1,0 +1,39 @@
+@inject IOptions<NpoOptions> Npo
+@{
+    ViewData["Title"] = "About";
+}
+
+<h1 class="page-title mb-1">About Elam Igugu Leli</h1>
+<p class="text-muted">@Npo.Value.Slogan</p>
+
+<section class="py-3">
+    <h2 class="section-title mb-3">What you can give</h2>
+    <div class="row g-3">
+        <div class="col-md-4"><div class="give-card"><img src="~/images/icon_clothes.svg" alt="" width="64" height="64" /><h3>Clothes</h3></div></div>
+        <div class="col-md-4"><div class="give-card"><img src="~/images/icon_food.svg" alt="" width="64" height="64" /><h3>Non-perishable food</h3></div></div>
+        <div class="col-md-4"><div class="give-card"><img src="~/images/icon_money.svg" alt="" width="64" height="64" /><h3>Money (EFT)</h3></div></div>
+    </div>
+</section>
+
+<section class="py-3">
+    <h2 class="section-title mb-3">How it works</h2>
+    <ol class="steps-row">
+        <li><strong>Sign up</strong><span>Create a quick account.</span></li>
+        <li><strong>Donate</strong><span>Say what you will give.</span></li>
+        <li><strong>Hand it over</strong><span>Drop off or pay by EFT.</span></li>
+        <li><strong>Received</strong><span>We confirm it on your page.</span></li>
+    </ol>
+</section>
+
+<section class="py-3">
+    <h2 class="section-title mb-3">Where we work</h2>
+    <p>@(string.Join(", ", DonationOptions.Cities))</p>
+    <p class="text-muted mb-0">
+        Questions? @Npo.Value.InstagramHandle &middot; @(string.Join(" / ", Npo.Value.PhoneNumbers)) &middot; @Npo.Value.Email
+    </p>
+</section>
+
+<div class="d-flex flex-wrap gap-2 pb-3">
+    <a class="btn btn-brand" asp-controller="Account" asp-action="Register">Sign up to donate</a>
+    <a class="btn btn-outline-secondary" asp-controller="Webinars" asp-action="Index">Career day webinars</a>
+</div>

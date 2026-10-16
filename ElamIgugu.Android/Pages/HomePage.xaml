@@ -6,13 +6,15 @@
              Title="Home">
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="14">
-            <Label x:Name="WelcomeLabel" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Brand}" />
+            <Border StrokeThickness="0" Padding="20" BackgroundColor="{StaticResource BrandDark}">
+                <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="14">
+                    <Label x:Name="WelcomeLabel" FontSize="22" FontAttributes="Bold" TextColor="White" />
+                    <Button Text="Donate / Drop Off" FontSize="18" Style="{StaticResource GoldButton}" Clicked="OnDonateClicked" />
+                </VerticalStackLayout>
+            </Border>
 
-            <Button Text="Donate / Drop Off" FontSize="20" HeightRequest="64" CornerRadius="14"
-                    BackgroundColor="{StaticResource Brand}" TextColor="White" FontAttributes="Bold"
-                    Clicked="OnDonateClicked" />
-
-            <Label Text="My donations" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
+            <Label Text="My donations" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
             <ActivityIndicator x:Name="Busy" IsRunning="True" IsVisible="True" Color="{StaticResource Brand}" />
             <Label x:Name="StateLabel" TextColor="{StaticResource Muted}" IsVisible="False" />
             <Button x:Name="RetryButton" Text="Try again" Style="{StaticResource SecondaryButton}" IsVisible="False" Clicked="OnRetryClicked" />
@@ -21,7 +23,7 @@
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:ApiIntent">
                         <Border Stroke="#DFE9DF" StrokeThickness="1" Padding="14" BackgroundColor="White">
-                            <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                            <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
                             <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
                                 <Label Text="{Binding SummaryText}" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
                                 <Border Grid.Column="1" StrokeThickness="0" Padding="10,2" BackgroundColor="{Binding ChipBackground}">

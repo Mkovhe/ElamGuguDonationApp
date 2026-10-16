@@ -5,10 +5,13 @@
              Title="Sign in">
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="14">
-            <Label Text="Elam Igugu Leli" FontSize="28" FontAttributes="Bold"
-                   TextColor="{StaticResource Brand}" HorizontalOptions="Center" />
-            <Label Text="Welcome back"
-                   HorizontalTextAlignment="Center" />
+            <Border StrokeThickness="0" Padding="20" BackgroundColor="{StaticResource BrandDark}">
+                <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Elam Igugu Leli" FontSize="26" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" />
+                    <Label Text="Welcome back" TextColor="{StaticResource Accent}" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
 
             <Entry x:Name="EmailEntry" Placeholder="Email address" Keyboard="Email" ReturnType="Next" />
             <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" ReturnType="Done" Completed="OnLoginClicked" />

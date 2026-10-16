@@ -10,6 +10,7 @@ public partial class AppShell : Shell
 
         Routing.RegisterRoute("register", typeof(RegisterPage));
         Routing.RegisterRoute("donate", typeof(DonatePage));
+        Routing.RegisterRoute("about", typeof(AboutPage));
         Routing.RegisterRoute("webinars", typeof(WebinarsPage));
         Routing.RegisterRoute("rsvp", typeof(RsvpPage));
     }

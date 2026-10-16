@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ElamIguguLeli.App.Pages.AboutPage"
+             Title="About us">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+            <Label Text="What you can give" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="6">
+                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                    <Image Source="icon_clothes.svg" HeightRequest="56" WidthRequest="56" />
+                    <Label Text="Clothes" FontSize="13" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="4">
+                    <Image Source="icon_food.svg" HeightRequest="56" WidthRequest="56" />
+                    <Label Text="Food" FontSize="13" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2" Spacing="4">
+                    <Image Source="icon_money.svg" HeightRequest="56" WidthRequest="56" />
+                    <Label Text="Money (EFT)" FontSize="13" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Label Text="How it works" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" Margin="0,8,0,0" />
+            <Label Text="1. Sign up for a quick account." />
+            <Label Text="2. Tap Donate and say what you will give." />
+            <Label Text="3. Hand it over, or pay by EFT." />
+            <Label Text="4. We mark it Received on your page." />
+
+            <Label Text="Where we work" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" Margin="0,8,0,0" />
+            <Label Text="PE, Alice, East London and Johannesburg" />
+
+            <Button Text="Career day webinars" Style="{StaticResource SecondaryButton}" Margin="0,8,0,0" Clicked="OnWebinarsClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

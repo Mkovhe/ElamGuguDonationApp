@@ -22,5 +22,5 @@ public partial class LandingPage : ContentPage
 
     private async void OnSignUpClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("register");
     private async void OnSignInClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("//login");
-    private async void OnWebinarsClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("webinars");
+    private async void OnAboutClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("about");
 }
