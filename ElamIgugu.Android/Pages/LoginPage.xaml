@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
              x:Class="ElamIguguLeli.App.Pages.LoginPage"
              Title="Sign in">
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="14">
-            <Border StrokeThickness="0" Padding="20" BackgroundColor="{StaticResource BrandDark}">
-                <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="Elam Igugu Leli" FontSize="26" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" />
-                    <Label Text="Welcome back" TextColor="{StaticResource Accent}" HorizontalTextAlignment="Center" />
+            <Image Source="elam_logo.png" Aspect="AspectFit" HeightRequest="110" HorizontalOptions="Center" />
+        <Border StrokeThickness="0" Padding="0">
+            <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#174D2A" Offset="0.0" />
+                    <GradientStop Color="#2E8B45" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <shapes:Ellipse Fill="#2693D768" WidthRequest="130" HeightRequest="130" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,0,0" />
+                <shapes:Ellipse Fill="#1FFFFFFF" WidthRequest="70" HeightRequest="70" HorizontalOptions="Start" VerticalOptions="End" Margin="0,0,0,0" />
+                <VerticalStackLayout Padding="22" Spacing="10">
+                    <Label Text="Welcome back" FontSize="26" FontAttributes="Bold" TextColor="White" />
+                    <Label Text="Sign in to give, track your donations and join webinars." TextColor="#DDF3C4" />
                 </VerticalStackLayout>
-            </Border>
+            </Grid>
+        </Border>
 
+            <Border Style="{StaticResource CardBorder}">
+                <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
             <Entry x:Name="EmailEntry" Placeholder="Email address" Keyboard="Email" ReturnType="Next" />
             <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" ReturnType="Done" Completed="OnLoginClicked" />
             <Entry x:Name="CodeEntry" Placeholder="6-digit authenticator code" Keyboard="Numeric" MaxLength="7" IsVisible="False" />
@@ -21,6 +36,8 @@
 
             <Button x:Name="LoginButton" Text="Sign in" Style="{StaticResource PrimaryButton}" Clicked="OnLoginClicked" />
             <ActivityIndicator x:Name="Busy" IsRunning="False" IsVisible="False" Color="{StaticResource Brand}" />
+                </VerticalStackLayout>
+            </Border>
 
             <Button Text="New here? Sign up" Style="{StaticResource SecondaryButton}" Clicked="OnRegisterClicked" />
             <Button Text="View webinars" Style="{StaticResource SecondaryButton}" Clicked="OnWebinarsClicked" />

@@ -1,5 +1,6 @@
 using ElamIguguLeli.App.Models;
 using ElamIguguLeli.App.Services;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace ElamIguguLeli.App.Pages;
 
@@ -53,15 +54,112 @@ public partial class DonatePage : ContentPage
         }
 
         TypePicker.ItemsSource = _contact.ItemTypes;
+        BuildTypeCards();
         CityPicker.ItemsSource = _contact.Cities;
+        BuildCityChips();
         FormStack.IsVisible = true;
     }
 
     private async void OnRetryClicked(object? sender, EventArgs e) => await LoadAsync();
 
+    // One big tappable card per item type (clothes, food, money). Tapping a card selects it in the hidden picker.
+    private void BuildTypeCards()
+    {
+        TypeCards.Children.Clear();
+        if (_contact == null) return;
+
+        var res = Application.Current!.Resources;
+        for (var i = 0; i < _contact.ItemTypes.Count; i++)
+        {
+            var index = i;
+            var name = _contact.ItemTypes[i];
+            var icon = name == _contact.MoneyItemType ? "icon_money.svg"
+                : name.Contains("food", StringComparison.OrdinalIgnoreCase) ? "icon_food.svg"
+                : "icon_clothes.svg";
+
+            var grid = new Grid { ColumnSpacing = 14 };
+            grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+            grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
+            grid.Add(new Image { Source = icon, HeightRequest = 52, WidthRequest = 52 }, 0, 0);
+            grid.Add(new Label
+            {
+                Text = name,
+                FontSize = 18,
+                FontAttributes = FontAttributes.Bold,
+                TextColor = (Color)res["BrandDark"],
+                VerticalOptions = LayoutOptions.Center
+            }, 1, 0);
+
+            var card = new Border
+            {
+                Style = (Style)res["CardBorder"],
+                StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(20) },
+                Content = grid
+            };
+            var tap = new TapGestureRecognizer();
+            tap.Tapped += (_, _) => TypePicker.SelectedIndex = index;
+            card.GestureRecognizers.Add(tap);
+            TypeCards.Children.Add(card);
+        }
+    }
+
+    // One tappable chip per city; tapping selects it in the hidden picker.
+    private void BuildCityChips()
+    {
+        CityChips.Children.Clear();
+        if (_contact == null) return;
+
+        for (var i = 0; i < _contact.Cities.Count; i++)
+        {
+            var index = i;
+            var chip = new Border
+            {
+                Style = (Style)Application.Current!.Resources["CardBorder"],
+                StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(22) },
+                Padding = new Thickness(18, 10),
+                Margin = new Thickness(0, 0, 8, 8),
+                Content = new Label
+                {
+                    Text = _contact.Cities[i],
+                    FontAttributes = FontAttributes.Bold,
+                    TextColor = (Color)Application.Current!.Resources["BrandDark"]
+                }
+            };
+            var tap = new TapGestureRecognizer();
+            tap.Tapped += (_, _) => CityPicker.SelectedIndex = index;
+            chip.GestureRecognizers.Add(tap);
+            CityChips.Children.Add(chip);
+        }
+    }
+
+    private void OnCityChanged(object? sender, EventArgs e)
+    {
+        for (var i = 0; i < CityChips.Children.Count; i++)
+        {
+            if (CityChips.Children[i] is not Border chip) continue;
+            var on = i == CityPicker.SelectedIndex;
+            chip.BackgroundColor = on ? Color.FromArgb("#93D768") : Colors.White;
+            chip.Stroke = new SolidColorBrush(on ? Color.FromArgb("#237A3B") : Color.FromArgb("#D6EBBE"));
+            chip.StrokeThickness = on ? 3 : 1;
+        }
+    }
+
+    private void HighlightSelectedCard(int selected)
+    {
+        for (var i = 0; i < TypeCards.Children.Count; i++)
+        {
+            if (TypeCards.Children[i] is not Border card) continue;
+            var on = i == selected;
+            card.BackgroundColor = on ? Color.FromArgb("#E6F1E6") : Colors.White;
+            card.Stroke = new SolidColorBrush(on ? Color.FromArgb("#237A3B") : Color.FromArgb("#D6EBBE"));
+            card.StrokeThickness = on ? 3 : 1;
+        }
+    }
+
     private void OnTypeChanged(object? sender, EventArgs e)
     {
         var index = TypePicker.SelectedIndex;
+        HighlightSelectedCard(index);
         var isMoney = IsMoneyIndex(index);
         var isItems = index >= 0 && !isMoney;
 

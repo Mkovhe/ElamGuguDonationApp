@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
              x:Class="ElamIguguLeli.App.Pages.RegisterPage"
              Title="Sign up">
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="12">
-            <Label Text="Create your account" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Brand}" />
+<Border StrokeThickness="0" Padding="0">
+            <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#174D2A" Offset="0.0" />
+                    <GradientStop Color="#2E8B45" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <shapes:Ellipse Fill="#2693D768" WidthRequest="130" HeightRequest="130" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,0,0" />
+                <shapes:Ellipse Fill="#1FFFFFFF" WidthRequest="70" HeightRequest="70" HorizontalOptions="Start" VerticalOptions="End" Margin="0,0,0,0" />
+                <VerticalStackLayout Padding="22" Spacing="10">
+                    <Label Text="Join us" FontSize="26" FontAttributes="Bold" TextColor="White" />
+                    <Label Text="Create your account. It only takes a minute." TextColor="#DDF3C4" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
 
+            <Border Style="{StaticResource CardBorder}">
+                <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
             <Entry x:Name="NameEntry" Placeholder="Full name" />
             <Entry x:Name="EmailEntry" Placeholder="Email address" Keyboard="Email" />
             <Entry x:Name="PhoneEntry" Placeholder="Contact number, e.g. 082 123 4567" Keyboard="Telephone" />
@@ -24,6 +44,8 @@
 
             <Button x:Name="RegisterButton" Text="Sign up" Style="{StaticResource PrimaryButton}" Clicked="OnRegisterClicked" />
             <ActivityIndicator x:Name="Busy" IsRunning="False" IsVisible="False" Color="{StaticResource Brand}" />
+                </VerticalStackLayout>
+            </Border>
             <Button Text="Already have an account? Sign in" Style="{StaticResource SecondaryButton}" Clicked="OnSignInClicked" />
         </VerticalStackLayout>
     </ScrollView>

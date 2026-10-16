@@ -1,39 +1,113 @@
 @inject IOptions<NpoOptions> Npo
 @{
     ViewData["Title"] = "About";
+    var signedIn = User.Identity?.IsAuthenticated == true;
+    var ig = Npo.Value.InstagramHandle?.TrimStart('@');
 }
 
 <h1 class="page-title mb-1">About Elam Igugu Leli</h1>
 <p class="text-muted">@Npo.Value.Slogan</p>
 
 <section class="py-3">
-    <h2 class="section-title mb-3">What you can give</h2>
+    <h2 class="section-title mb-1">What you can give</h2>
+    <p class="text-muted mb-3">Tap one to get started.</p>
     <div class="row g-3">
-        <div class="col-md-4"><div class="give-card"><img src="~/images/icon_clothes.svg" alt="" width="64" height="64" /><h3>Clothes</h3></div></div>
-        <div class="col-md-4"><div class="give-card"><img src="~/images/icon_food.svg" alt="" width="64" height="64" /><h3>Non-perishable food</h3></div></div>
-        <div class="col-md-4"><div class="give-card"><img src="~/images/icon_money.svg" alt="" width="64" height="64" /><h3>Money (EFT)</h3></div></div>
+        @foreach (var item in new[] { ("Clothes", "icon_clothes.svg", "clothes"), ("Non-perishable food", "icon_food.svg", "food"), ("Money (EFT)", "icon_money.svg", "money") })
+        {
+            <div class="col-md-4">
+                @if (signedIn)
+                {
+                    <a class="give-card give-link" asp-controller="Home" asp-action="Dashboard">
+                        <img src="~/images/@item.Item2" alt="" width="64" height="64" />
+                        <h3>@item.Item1</h3>
+                        <span class="give-hint">Donate now</span>
+                    </a>
+                }
+                else
+                {
+                    <button type="button" class="give-card give-link" data-bs-toggle="modal" data-bs-target="#donateModal" data-item="@item.Item3">
+                        <img src="~/images/@item.Item2" alt="" width="64" height="64" />
+                        <h3>@item.Item1</h3>
+                        <span class="give-hint">Sign up or sign in to donate</span>
+                    </button>
+                }
+            </div>
+        }
     </div>
 </section>
 
 <section class="py-3">
     <h2 class="section-title mb-3">How it works</h2>
     <ol class="steps-row">
-        <li><strong>Sign up</strong><span>Create a quick account.</span></li>
-        <li><strong>Donate</strong><span>Say what you will give.</span></li>
-        <li><strong>Hand it over</strong><span>Drop off or pay by EFT.</span></li>
-        <li><strong>Received</strong><span>We confirm it on your page.</span></li>
+        <li>
+            @if (signedIn) { <a class="step-link" asp-controller="Home" asp-action="Dashboard"><strong>Sign up</strong><span>You are signed in.</span></a> }
+            else { <a class="step-link" asp-controller="Account" asp-action="Register"><strong>Sign up</strong><span>Create a quick account.</span></a> }
+        </li>
+        <li>
+            @if (signedIn) { <a class="step-link" asp-controller="Home" asp-action="Dashboard"><strong>Donate</strong><span>Say what you will give.</span></a> }
+            else { <button type="button" class="step-link" data-bs-toggle="modal" data-bs-target="#donateModal" data-item="a donation"><strong>Donate</strong><span>Say what you will give.</span></button> }
+        </li>
+        <li>
+            @if (signedIn) { <a class="step-link" asp-controller="Home" asp-action="Dashboard"><strong>Hand it over</strong><span>Drop off or pay by EFT.</span></a> }
+            else { <button type="button" class="step-link" data-bs-toggle="modal" data-bs-target="#donateModal" data-item="a donation"><strong>Hand it over</strong><span>Drop off or pay by EFT.</span></button> }
+        </li>
+        <li>
+            @if (signedIn) { <a class="step-link" asp-controller="Home" asp-action="Dashboard"><strong>Received</strong><span>We confirm it on your page.</span></a> }
+            else { <button type="button" class="step-link" data-bs-toggle="modal" data-bs-target="#donateModal" data-item="a donation"><strong>Received</strong><span>We confirm it on your page.</span></button> }
+        </li>
     </ol>
 </section>
 
 <section class="py-3">
     <h2 class="section-title mb-3">Where we work</h2>
     <p>@(string.Join(", ", DonationOptions.Cities))</p>
-    <p class="text-muted mb-0">
-        Questions? @Npo.Value.InstagramHandle &middot; @(string.Join(" / ", Npo.Value.PhoneNumbers)) &middot; @Npo.Value.Email
+    <p class="mb-0">
+        Questions?
+        <a href="https://instagram.com/@ig" target="_blank" rel="noopener">@Npo.Value.InstagramHandle</a> &middot;
+        @foreach (var phone in Npo.Value.PhoneNumbers)
+        {
+            <a href="tel:@phone">@phone</a><text> &middot; </text>
+        }
+        <a href="mailto:@Npo.Value.Email">@Npo.Value.Email</a>
     </p>
 </section>
 
 <div class="d-flex flex-wrap gap-2 pb-3">
-    <a class="btn btn-brand" asp-controller="Account" asp-action="Register">Sign up to donate</a>
+    @if (signedIn)
+    {
+        <a class="btn btn-brand" asp-controller="Home" asp-action="Dashboard">Go to my page</a>
+    }
+    else
+    {
+        <a class="btn btn-brand" asp-controller="Account" asp-action="Register">Sign up to donate</a>
+        <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Login">Sign in</a>
+    }
     <a class="btn btn-outline-secondary" asp-controller="Webinars" asp-action="Index">Career day webinars</a>
 </div>
+
+<div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header border-0">
+                <h2 class="modal-title section-title" id="donateModalTitle">Donate <span id="donateItem">now</span></h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0">
+                <p class="text-muted">Please sign up or sign in first, so the NPO knows who the donation is from.</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a class="btn btn-brand" asp-controller="Account" asp-action="Register">Sign up</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Login">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('donateModal').addEventListener('show.bs.modal', function (e) {
+            var item = e.relatedTarget && e.relatedTarget.getAttribute('data-item');
+            document.getElementById('donateItem').textContent = item ? (item === 'a donation' ? 'now' : item) : 'now';
+        });
+    </script>
+}

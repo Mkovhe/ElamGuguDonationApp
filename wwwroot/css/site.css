@@ -210,3 +210,11 @@ body { background: var(--paper); }
 
 .hero-link { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .hero-link:hover { color: var(--gold); }
+
+/* Clickable cards */
+.give-link { display: block; width: 100%; font: inherit; color: inherit; text-decoration: none; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
+.give-link:hover, .give-link:focus-visible { transform: translateY(-3px); box-shadow: 0 16px 30px -18px rgba(23, 77, 42, .7); border-color: var(--green); color: inherit; }
+.give-hint { display: block; margin-top: .35rem; font-size: .85rem; font-weight: 600; color: var(--green); }
+.step-link { all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: .2rem; cursor: pointer; width: 100%; }
+.step-link:hover strong { text-decoration: underline; }
+.steps-row li:hover { border-color: var(--green); }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
              x:Class="ElamIguguLeli.App.Pages.DonatePage"
              Title="Donate / Drop Off">
     <ScrollView>
@@ -10,12 +11,29 @@
             <Button x:Name="RetryButton" Text="Try again" Style="{StaticResource SecondaryButton}" IsVisible="False" Clicked="OnRetryClicked" />
 
             <VerticalStackLayout x:Name="FormStack" Spacing="12" IsVisible="False">
-                <Label Text="What are you donating?" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
-                <Picker x:Name="TypePicker" Title="Choose..." SelectedIndexChanged="OnTypeChanged" />
+                <Border StrokeThickness="0" Padding="0">
+            <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#174D2A" Offset="0.0" />
+                    <GradientStop Color="#2E8B45" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <shapes:Ellipse Fill="#2693D768" WidthRequest="130" HeightRequest="130" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,0,0" />
+                <shapes:Ellipse Fill="#1FFFFFFF" WidthRequest="70" HeightRequest="70" HorizontalOptions="Start" VerticalOptions="End" Margin="0,0,0,0" />
+                <VerticalStackLayout Padding="22" Spacing="10">
+                    <Label Text="Thank you for giving" FontSize="26" FontAttributes="Bold" TextColor="White" />
+                    <Label Text="What would you like to donate? Tap one." TextColor="#DDF3C4" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+                <VerticalStackLayout x:Name="TypeCards" Spacing="10" />
+                <Picker x:Name="TypePicker" Title="Choose..." IsVisible="False" SelectedIndexChanged="OnTypeChanged" />
 
                 <!-- Money (EFT) -->
                 <VerticalStackLayout x:Name="MoneyStack" Spacing="10" IsVisible="False">
-                    <Border BackgroundColor="{StaticResource BrandLight}" StrokeThickness="0" Padding="14">
+                    <Border BackgroundColor="{StaticResource BrandLight}" StrokeThickness="0" Padding="16">
                         <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
                         <VerticalStackLayout Spacing="2">
                             <Label Text="Pay by EFT" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
@@ -29,12 +47,14 @@
 
                 <!-- Clothes or food -->
                 <VerticalStackLayout x:Name="ItemsStack" Spacing="10" IsVisible="False">
-                    <Picker x:Name="CityPicker" Title="Which city?" />
+                    <Label Text="Which city are you in?" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
+                    <FlexLayout x:Name="CityChips" Wrap="Wrap" JustifyContent="Start" />
+                    <Picker x:Name="CityPicker" Title="Which city?" IsVisible="False" SelectedIndexChanged="OnCityChanged" />
                 </VerticalStackLayout>
 
                 <Entry x:Name="DetailsEntry" Placeholder="Description (optional)" MaxLength="300" IsVisible="False" />
 
-                <Border x:Name="ContactBox" BackgroundColor="{StaticResource BrandLight}" StrokeThickness="0" Padding="14" IsVisible="False">
+                <Border x:Name="ContactBox" BackgroundColor="{StaticResource BrandLight}" StrokeThickness="0" Padding="16" IsVisible="False">
                     <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
                     <VerticalStackLayout Spacing="4">
                         <Label Text="Contact the NPO to hand the items over" FontAttributes="Bold" TextColor="{StaticResource Ink}" />

@@ -2,17 +2,32 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ElamIguguLeli.App.Pages.LandingPage"
-             Title="Elam Igugu Leli">
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="16">
-            <Image Source="elam_logo.png" Aspect="AspectFit" HeightRequest="220" HorizontalOptions="Center" />
+             Title="Elam Igugu Leli"
+             BackgroundColor="White">
+    <Grid RowDefinitions="Auto,*,Auto">
 
-            <Label Text="Give something to those who have nothing." FontSize="26" FontAttributes="Bold"
+        <VerticalStackLayout Grid.Row="0" Padding="20,10,20,10" Spacing="4">
+            <Image Source="elam_logo.png" Aspect="AspectFit" HeightRequest="150" HorizontalOptions="Center" />
+            <Label Text="Give something to those who have nothing." FontSize="22" FontAttributes="Bold"
                    TextColor="{StaticResource BrandDark}" HorizontalTextAlignment="Center" />
-
-            <Button Text="Sign up to donate" Style="{StaticResource GoldButton}" Margin="0,8,0,0" Clicked="OnSignUpClicked" />
-            <Button Text="Sign in" Style="{StaticResource SecondaryButton}" Clicked="OnSignInClicked" />
-            <Button Text="About us" BackgroundColor="Transparent" TextColor="{StaticResource Brand}" Clicked="OnAboutClicked" />
         </VerticalStackLayout>
-    </ScrollView>
+
+        <Border Grid.Row="1" StrokeThickness="0" Padding="0" Margin="0,4,0,0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#F4FAEA" Offset="0.0" />
+                    <GradientStop Color="#C9EBA6" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Image Source="elam_hero.svg" Aspect="AspectFit" VerticalOptions="End" />
+        </Border>
+
+        <Border Grid.Row="2" StrokeThickness="0" Padding="24,24,24,22" BackgroundColor="#237A3B">
+            <VerticalStackLayout Spacing="12">
+                <Button Text="Sign up to donate" Style="{StaticResource GoldButton}" Clicked="OnSignUpClicked" />
+                <Button Text="Sign in" Style="{StaticResource SecondaryButton}" TextColor="White" BorderColor="#99FFFFFF" Clicked="OnSignInClicked" />
+                <Button Text="About us" BackgroundColor="Transparent" TextColor="#DDF3C4" Clicked="OnAboutClicked" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
 </ContentPage>

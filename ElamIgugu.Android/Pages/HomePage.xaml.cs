@@ -61,6 +61,10 @@ public partial class HomePage : ContentPage
     private async void OnDonateClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("donate");
     private async void OnWebinarsClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("webinars");
 
+    private async void OnDonateTapped(object? sender, TappedEventArgs e) => await Shell.Current.GoToAsync("donate");
+    private async void OnWebinarsTapped(object? sender, TappedEventArgs e) => await Shell.Current.GoToAsync("webinars");
+    private async void OnAboutTapped(object? sender, TappedEventArgs e) => await Shell.Current.GoToAsync("about");
+
     private async void OnLogoutClicked(object? sender, EventArgs e)
     {
         _session.Clear();

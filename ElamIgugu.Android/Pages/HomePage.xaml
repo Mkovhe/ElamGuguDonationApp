@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
              xmlns:models="clr-namespace:ElamIguguLeli.App.Models"
              x:Class="ElamIguguLeli.App.Pages.HomePage"
              Title="Home">
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="14">
-            <Border StrokeThickness="0" Padding="20" BackgroundColor="{StaticResource BrandDark}">
-                <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
-                <VerticalStackLayout Spacing="14">
-                    <Label x:Name="WelcomeLabel" FontSize="22" FontAttributes="Bold" TextColor="White" />
-                    <Button Text="Donate / Drop Off" FontSize="18" Style="{StaticResource GoldButton}" Clicked="OnDonateClicked" />
+            <Image Source="elam_logo.png" Aspect="AspectFit" HeightRequest="90" HorizontalOptions="Center" />
+        <Border StrokeThickness="0" Padding="0">
+            <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#174D2A" Offset="0.0" />
+                    <GradientStop Color="#2E8B45" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <shapes:Ellipse Fill="#2693D768" WidthRequest="130" HeightRequest="130" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,0,0" />
+                <shapes:Ellipse Fill="#1FFFFFFF" WidthRequest="70" HeightRequest="70" HorizontalOptions="Start" VerticalOptions="End" Margin="0,0,0,0" />
+                <VerticalStackLayout Padding="22" Spacing="10">
+                    <Label x:Name="WelcomeLabel" FontSize="24" FontAttributes="Bold" TextColor="White" />
+                    <Label Text="Every donation helps a child." TextColor="#DDF3C4" />
+                    <Button Text="Donate / Drop Off" FontSize="18" Style="{StaticResource GoldButton}" Margin="0,6,0,0" Clicked="OnDonateClicked" />
                 </VerticalStackLayout>
-            </Border>
+            </Grid>
+        </Border>
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <Border Grid.Column="0" Style="{StaticResource CardBorder}" Padding="8,14">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="6">
+                        <Image Source="icon_heart.svg" HeightRequest="44" WidthRequest="44" />
+                        <Label Text="Donate" FontSize="13" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{StaticResource BrandDark}" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnDonateTapped" /></Border.GestureRecognizers>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource CardBorder}" Padding="8,14">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="6">
+                        <Image Source="icon_learn.svg" HeightRequest="44" WidthRequest="44" />
+                        <Label Text="Webinars" FontSize="13" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{StaticResource BrandDark}" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnWebinarsTapped" /></Border.GestureRecognizers>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource CardBorder}" Padding="8,14">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="6">
+                        <Image Source="icon_pin.svg" HeightRequest="44" WidthRequest="44" />
+                        <Label Text="About us" FontSize="13" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{StaticResource BrandDark}" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnAboutTapped" /></Border.GestureRecognizers>
+                </Border>
+            </Grid>
 
             <Label Text="My donations" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource BrandDark}" />
             <ActivityIndicator x:Name="Busy" IsRunning="True" IsVisible="True" Color="{StaticResource Brand}" />
@@ -22,7 +62,7 @@
             <VerticalStackLayout x:Name="DonationsList" Spacing="10">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:ApiIntent">
-                        <Border Stroke="#DFE9DF" StrokeThickness="1" Padding="14" BackgroundColor="White">
+                        <Border Style="{StaticResource CardBorder}" Padding="14">
                             <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
                             <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
                                 <Label Text="{Binding SummaryText}" FontAttributes="Bold" TextColor="{StaticResource Ink}" />
@@ -39,7 +79,6 @@
 
             <Label Text="Received = an admin confirmed it arrived." FontSize="12" TextColor="{StaticResource Muted}" />
 
-            <Button Text="Webinars" Style="{StaticResource SecondaryButton}" Clicked="OnWebinarsClicked" />
             <Button Text="Sign out" Style="{StaticResource SecondaryButton}" Clicked="OnLogoutClicked" />
         </VerticalStackLayout>
     </ScrollView>
