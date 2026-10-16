@@ -1,4 +1,4 @@
-# Elam Igugu Leli Donation System
+﻿# Elam Igugu Leli Donation System
 
 Group 19, IIE, module XADAD7112 (Work-Integrated Learning). A donation platform for the NPO **Elam Igugu Leli**: a website for donors and admins, plus an Android app for donors.
 
@@ -79,4 +79,4 @@ Requirements: Visual Studio 2026 with the .NET MAUI workload and an Android emul
 
 ## Team
 
-IIE Group 19. Website by a teammate. API and Android app by Chaka Vhukhudo.
+IIE Group 19. Website by a teammate. API and Android app by Mukovhe Rambau.
