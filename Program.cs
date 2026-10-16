@@ -57,6 +57,12 @@ builder.Services.Configure<NpoOptions>(builder.Configuration.GetSection("Npo"));
 
 // ---- JWT: lets the Android app sign in through /api/... (the website keeps using cookies) ----
 // Jwt:Key must be 32+ characters. Set it with user-secrets locally and in App Service settings on Azure.
+// Development only: if no key is set, use a built-in test key so the project runs straight after cloning.
+// This never applies on Azure (Production), where the real secret Jwt__Key must be set.
+if (builder.Environment.IsDevelopment() && (builder.Configuration["Jwt:Key"]?.Length ?? 0) < 32)
+{
+    builder.Configuration["Jwt:Key"] = "DEVELOPMENT-ONLY-KEY-not-for-production-0123456789";
+}
 var jwt = builder.Configuration.GetSection("Jwt").Get<JwtOptions>() ?? new JwtOptions();
 if (string.IsNullOrWhiteSpace(jwt.Key) || jwt.Key.Length < 32)
 {
