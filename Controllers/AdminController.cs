@@ -1,4 +1,5 @@
 using ElamIgugu.Web.Data;
+using ElamIgugu.Web.Helpers;
 using ElamIgugu.Web.Models;
 using ElamIgugu.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ namespace ElamIgugu.Web.Controllers;
 
 /// <summary>Admin-only pages: the donors list, the donations list and the Verify action.</summary>
 [Authorize(Roles = AppRoles.Admin)]
+[RequireAdminTwoFactor]
 public class AdminController : Controller
 {
     private readonly ApplicationDbContext _db;

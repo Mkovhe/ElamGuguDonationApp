@@ -68,6 +68,11 @@ public class AuthApiController : ApiControllerBase
             return Problem(StatusCodes.Status401Unauthorized, invalidMessage);
         }
 
+        // Administrators must use two-factor. They set it up on the website first.
+        if (!user.TwoFactorEnabled && await _userManager.IsInRoleAsync(user, AppRoles.Admin))
+            return Problem(StatusCodes.Status403Forbidden,
+                "Administrators must switch on two-factor sign-in on the website before signing in here.");
+
         if (user.TwoFactorEnabled)
         {
             if (string.IsNullOrWhiteSpace(request.TwoFactorCode))

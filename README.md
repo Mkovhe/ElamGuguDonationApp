@@ -47,7 +47,7 @@ Requirements: Visual Studio 2022 or later (or the .NET 8 SDK) and SQL Server Loc
 
 In Development the site uses a built-in test JWT key and the LocalDB database from `appsettings.json`. The database is created and migrated automatically on first start.
 
-Optional: to create an admin account for the website, set these before running:
+Optional: to create an admin account for the website, set these before running (the admin must then set up two-factor with an authenticator app on first sign-in):
 
 ```
 dotnet user-secrets set "Seed:AdminEmail" "<admin email>"
@@ -77,7 +77,7 @@ Requirements: Visual Studio 2026 with the .NET MAUI workload and an Android emul
 - Passwords need 8+ characters with upper case, lower case and a digit. Accounts lock after repeated failed logins.
 - API sign-in and registration are rate limited.
 - Database access uses Entity Framework (parameterised queries), so SQL injection is not possible through the forms.
-- **Two-factor sign-in (authenticator app):** after signing in, open **Security** in the top menu, choose **Switch on**, scan the QR code with Google/Microsoft Authenticator and enter the 6-digit code. You get 8 one-time recovery codes. From then on, signing in on the website and in the Android app asks for the code. Switching it off needs the password. The Android app has the same option under **Account security (two-factor)** on the Home screen (it uses the `/api/security/two-factor` endpoints).
+- **Two-factor sign-in (authenticator app):** after signing in, open **Security** in the top menu, choose **Switch on**, scan the QR code with Google/Microsoft Authenticator and enter the 6-digit code. You get 8 one-time recovery codes. From then on, signing in on the website and in the Android app asks for the code. Switching it off needs the password. **Administrators must switch two-factor on at their first sign-in** (they are sent to the Security page) and cannot switch it off. The Android app has the same option under **Account security (two-factor)** on the Home screen (it uses the `/api/security/two-factor` endpoints).
 
 ## Team
 

@@ -89,11 +89,17 @@ public class SecurityController : Controller
     // ---------- Switch off ----------
 
     [HttpGet]
-    public IActionResult Disable() => View(new DisableTwoFactorViewModel());
+    public IActionResult Disable()
+    {
+        if (User.IsInRole(AppRoles.Admin)) return AdminMustKeepOn();
+        return View(new DisableTwoFactorViewModel());
+    }
 
     [HttpPost]
     public async Task<IActionResult> Disable(DisableTwoFactorViewModel model)
     {
+        if (User.IsInRole(AppRoles.Admin)) return AdminMustKeepOn();
+
         var user = await _userManager.GetUserAsync(User);
         if (user is null) return RedirectToAction("Login", "Account");
         if (!ModelState.IsValid) return View(model);
@@ -115,6 +121,12 @@ public class SecurityController : Controller
     }
 
     // ---------- Helpers ----------
+
+    private IActionResult AdminMustKeepOn()
+    {
+        TempData["Warning"] = "Two-factor sign-in is required for administrators and cannot be switched off.";
+        return RedirectToAction(nameof(Index));
+    }
 
     private async Task<EnableTwoFactorViewModel> BuildSetupAsync(ApplicationUser user, EnableTwoFactorViewModel model)
     {

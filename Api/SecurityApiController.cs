@@ -124,6 +124,8 @@ public class SecurityApiController : ApiControllerBase
     {
         var user = await CurrentUserAsync();
         if (user == null) return Unauthorized();
+        if (User.IsInRole(AppRoles.Admin))
+            return Problem(StatusCodes.Status400BadRequest, "Two-factor sign-in is required for administrators and cannot be switched off.");
 
         // Ask for the password again so a stolen, unlocked phone cannot switch the protection off
         if (!await _userManager.CheckPasswordAsync(user, request.Password))

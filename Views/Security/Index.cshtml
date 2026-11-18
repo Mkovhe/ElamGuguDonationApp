@@ -10,13 +10,24 @@
     {
         <div class="alert alert-success">@ok</div>
     }
+    @if (TempData["Warning"] is string warn)
+    {
+        <div class="alert alert-warning">@warn</div>
+    }
 
     <h2 class="h5">Two-factor sign-in</h2>
     @if (Model.TwoFactorEnabled)
     {
         <p><span class="badge text-bg-success">On</span> Signing in needs your password and a code from your authenticator app.</p>
         <p class="text-muted">Recovery codes left: <strong>@Model.RecoveryCodesLeft</strong></p>
-        <a class="btn btn-outline-secondary" asp-action="Disable">Switch off</a>
+        @if (User.IsInRole(AppRoles.Admin))
+        {
+            <p class="text-muted mb-0">Two-factor sign-in is required for administrators.</p>
+        }
+        else
+        {
+            <a class="btn btn-outline-secondary" asp-action="Disable">Switch off</a>
+        }
     }
     else
     {

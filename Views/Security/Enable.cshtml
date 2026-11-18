@@ -6,6 +6,11 @@
 <div class="auth-card">
     <h1 class="page-title">Switch on two-factor sign-in</h1>
 
+    @if (TempData["Warning"] is string warn)
+    {
+        <div class="alert alert-warning">@warn</div>
+    }
+
     <ol class="mb-3">
         <li>Install an authenticator app on your phone (Google Authenticator, Microsoft Authenticator or Authy).</li>
         <li>In the app, add an account and scan this picture.</li>
