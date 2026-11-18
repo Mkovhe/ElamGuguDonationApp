@@ -81,4 +81,4 @@ Requirements: Visual Studio 2026 with the .NET MAUI workload and an Android emul
 
 ## Team
 
-IIE Group 19. Website by a teammate. API and Android app by Chaka Vhukhudo.
+IIE Group 19. Website by a teammate. API and Android app by Mukovhe Rambau.
